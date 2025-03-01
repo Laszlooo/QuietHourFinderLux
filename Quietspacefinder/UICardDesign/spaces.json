@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "title": "Serene Library",
+        "description": "A peaceful space perfect for focused work.",
+        "image": "library"
+    },
+    {
+        "id": 2,
+        "title": "Mountain Retreat",
+        "description": "An inspiring view for deep thinking.",
+        "image": "mountain.png"
+    }
+]
