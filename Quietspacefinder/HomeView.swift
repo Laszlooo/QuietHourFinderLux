@@ -1,16 +1,13 @@
 import SwiftUI
-
-struct CardHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = max(value, nextValue())
-    }
-}
+import MapKit
 
 struct HomeView: View {
-    @State private var maxCardHeight: CGFloat = 0
     @StateObject var viewModel = SpaceViewModel()
-
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 49.8152995, longitude: 6.13332),
+        span: MKCoordinateSpan(latitudeDelta: 1.15, longitudeDelta: 0.05)
+    )
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -19,26 +16,37 @@ struct HomeView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(.leading)
-
+                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 15) {
                             ForEach(viewModel.spaces) { space in
-                                SpaceCardView(space: space)
-                                    .frame(width: 200)
-                                    .background(GeometryReader { proxy in
-                                        Color.clear
-                                            .preference(key: CardHeightKey.self, value: proxy.size.height)
-                                    })
+                                NavigationLink(destination: SpaceDetailView(space: space)) {
+                                    SpaceCardView(space: space)
+                                        .frame(width: 250, height: 325)
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                         .padding(.horizontal)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 10)
                     }
-                    .frame(height: maxCardHeight + 0) // Dynamically set height
-                    .onPreferenceChange(CardHeightKey.self) { newHeight in
-                        maxCardHeight = newHeight
+                    
+                    Text("Maps")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                    
+                    NavigationLink(destination: FullScreenMapView()) {
+                        Map(
+                            coordinateRegion: $region
+                            )
+                        .frame(height: 400)
+                        .cornerRadius(15)
+                        .padding(.horizontal)
+                        .shadow(radius: 5)
                     }
-                }
+                    .navigationBarTitle(Text("Home"), displayMode: .inline)
+                    .buttonStyle(PlainButtonStyle())                 }
                 .padding(.top)
             }
         }
