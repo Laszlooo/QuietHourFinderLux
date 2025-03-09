@@ -1,17 +1,14 @@
-//
-//  QuietspacefinderApp.swift
-//  Quietspacefinder
-//
-//  Created by Laszlo Durviaux on 22/02/2025.
-//
-
 import SwiftUI
 
 @main
 struct QuietspacefinderApp: App {
+    @StateObject private var themeManager = ThemeManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(themeManager.theme.colorScheme)
+                .environmentObject(themeManager)
         }
     }
 }
