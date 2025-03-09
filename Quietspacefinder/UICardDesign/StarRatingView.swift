@@ -7,7 +7,7 @@ struct StarRatingView: View {
         HStack(spacing: 4) {
             ForEach(1...5, id: \.self) { index in
                 Image(systemName: index <= rating ? "star.fill" : "star")
-                    .foregroundColor(index <= rating ? .yellow : .gray)
+                    .foregroundColor(index <= rating ? .blue : .gray)
             }
         }
     }

@@ -39,16 +39,24 @@ struct HomeView: View {
                     NavigationLink(destination: FullScreenMapView()) {
                         Map(
                             coordinateRegion: $region
-                            )
+                        )
                         .frame(height: 400)
                         .cornerRadius(15)
                         .padding(.horizontal)
                         .shadow(radius: 5)
                     }
-                    .navigationBarTitle(Text("Home"), displayMode: .inline)
-                    .buttonStyle(PlainButtonStyle())                 }
+                    .buttonStyle(PlainButtonStyle())
+                }
                 .padding(.top)
             }
+            .navigationBarTitle(Text("Home"), displayMode: .inline)
+                       .navigationBarItems(trailing:
+                           NavigationLink(destination: SettingsView()) {
+                           Image(systemName: "gearshape.fill")
+                                   .font(.system(size: 22))
+                                   .foregroundColor(.primary)
+                           }
+                       )
         }
     }
 }
