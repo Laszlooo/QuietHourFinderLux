@@ -36,26 +36,21 @@ struct SettingsView: View {
             }
             
             Section(header: Text("Appearance")) {
-                ForEach(AppTheme.allCases) { theme in
-                    Button(action: {
-                        themeManager.theme = theme
-                    }) {
-                        HStack {
-                            Image(systemName: theme.icon)
-                                .foregroundColor(getIconColor(for: theme))
-                                .font(.system(size: 20))
-                            
-                            Text(theme.rawValue)
-                            
-                            Spacer()
-                            
-                            if themeManager.theme == theme {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
+                HStack {
+                    Image(systemName: "paintbrush")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 20))
+                    
+                    Picker("Theme", selection: $themeManager.theme) {
+                        ForEach(AppTheme.allCases) { theme in
+                            HStack {
+                                Image(systemName: theme.icon)
+                                Text(theme.rawValue)
                             }
+                            .tag(theme)
                         }
                     }
-                    .padding(.vertical, 4)
+                    .pickerStyle(MenuPickerStyle())
                 }
             }
             
@@ -73,19 +68,6 @@ struct SettingsView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Settings")
-    }
-}
-
-extension SettingsView {
-    func getIconColor(for theme: AppTheme) -> Color {
-        switch theme {
-        case .system:
-            return .blue
-        case .light:
-            return .orange
-        case .dark:
-            return .indigo
-        }
     }
 }
 
