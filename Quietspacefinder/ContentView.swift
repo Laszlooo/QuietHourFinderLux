@@ -1,15 +1,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var themeManager: ThemeManager
+    
     var body: some View {
-                HomeView()
+        HomeView()
             .scrollIndicators(.hidden)
+            .preferredColorScheme(themeManager.theme.colorScheme)
     }
 }
    
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .environmentObject(ThemeManager())
+                .preferredColorScheme(.light)
+            
+            ContentView()
+                .environmentObject(ThemeManager())
+                .preferredColorScheme(.dark)
+        }
     }
 }

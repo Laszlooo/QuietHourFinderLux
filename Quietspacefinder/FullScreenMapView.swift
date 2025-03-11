@@ -6,18 +6,34 @@ struct FullScreenMapView: View {
         center: CLLocationCoordinate2D(latitude: 49.8152995, longitude: 6.13332),
         span: MKCoordinateSpan(latitudeDelta: 1.15, longitudeDelta: 0.05)
     )
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var themeManager: ThemeManager
 
     var body: some View {
-           Map(
-               coordinateRegion: $region // Pass the region directly
-           )
-           .edgesIgnoringSafeArea(.all) // Makes the map full screen
-           .navigationBarTitle("Full Screen Map", displayMode: .inline)
-       }
-   }
+        Map(
+            coordinateRegion: $region
+        )
+        .edgesIgnoringSafeArea(.all)
+        .navigationBarTitle("Full Screen Map", displayMode: .inline)
+        .colorScheme(colorScheme) // Ensure map respects system appearance
+        .preferredColorScheme(themeManager.theme.colorScheme)
+    }
+}
 
 struct FullScreenMapView_Previews: PreviewProvider {
     static var previews: some View {
-        FullScreenMapView()
+        Group {
+            NavigationView {
+                FullScreenMapView()
+                    .environmentObject(ThemeManager())
+            }
+            .preferredColorScheme(.light)
+            
+            NavigationView {
+                FullScreenMapView()
+                    .environmentObject(ThemeManager())
+            }
+            .preferredColorScheme(.dark)
+        }
     }
 }

@@ -7,6 +7,8 @@ struct HomeView: View {
         center: CLLocationCoordinate2D(latitude: 49.8152995, longitude: 6.13332),
         span: MKCoordinateSpan(latitudeDelta: 1.15, longitudeDelta: 0.05)
     )
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
         NavigationView {
@@ -43,26 +45,38 @@ struct HomeView: View {
                         .frame(height: 400)
                         .cornerRadius(15)
                         .padding(.horizontal)
-                        .shadow(radius: 5)
+                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.3) : Color.black.opacity(0.3),
+                                radius: 5, x: 5, y: 2)
+                        .colorScheme(colorScheme)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.top)
             }
             .navigationBarTitle(Text("Home"), displayMode: .inline)
-                       .navigationBarItems(trailing:
-                           NavigationLink(destination: SettingsView()) {
-                           Image(systemName: "gearshape.fill")
-                                   .font(.system(size: 22))
-                                   .foregroundColor(.primary)
-                           }
-                       )
+            .navigationBarItems(trailing:
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 22))
+                        .foregroundColor(.primary)
+                }
+            )
+            .background(colorScheme == .dark ? Color(UIColor.systemBackground) : Color(UIColor.systemBackground))
+            .preferredColorScheme(themeManager.theme.colorScheme)
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        Group {
+            HomeView()
+                .environmentObject(ThemeManager())
+                .preferredColorScheme(.light)
+            
+            HomeView()
+                .environmentObject(ThemeManager())
+                .preferredColorScheme(.dark)
+        }
     }
 }
