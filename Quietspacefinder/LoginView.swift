@@ -25,7 +25,7 @@ struct LoginView: View {
             
             // Login form
             VStack(spacing: 0) {
-                Spacer()
+              
                 
                 VStack(spacing: 25) {
                     // Handle at top for pulling
@@ -37,6 +37,7 @@ struct LoginView: View {
                     // Title
                     Text("Sign In")
                         .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(colorScheme == .dark ? Color(UIColor.white) : Color(UIColor.systemGray6))
                         .foregroundColor(.primary)
                     
                     // Form fields
@@ -49,7 +50,7 @@ struct LoginView: View {
                             
                             TextField("you@example.com", text: $email)
                                 .padding()
-                                .background(colorScheme == .dark ? Color(UIColor.systemGray6) : Color(UIColor.systemGray6))
+                                .background(colorScheme == .dark ? Color(UIColor.systemGray6) : Color(UIColor.lightGray))
                                 .cornerRadius(10)
                                 .keyboardType(.emailAddress)
                                 .autocapitalization(.none)
@@ -59,7 +60,9 @@ struct LoginView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Password")
                                 .font(.headline)
-                                .foregroundColor(.primary.opacity(0.8))
+                                .foregroundStyle(colorScheme == .dark ? Color(UIColor.white) : Color(UIColor.black))
+                                .foregroundStyle(.primary.opacity(0.8))
+                                
                             
                             HStack {
                                 if showPassword {
@@ -80,7 +83,7 @@ struct LoginView: View {
                                 }
                                 .padding(.trailing, 15)
                             }
-                            .background(colorScheme == .dark ? Color(UIColor.systemGray6) : Color(UIColor.systemGray6))
+                            .background(colorScheme == .dark ? Color(UIColor.systemGray6) : Color(UIColor.lightGray))
                             .cornerRadius(10)
                         }
                         
@@ -143,7 +146,7 @@ struct LoginView: View {
                     // Sign up option
                     HStack {
                         Text("Don't have an account?")
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(colorScheme == .dark ? Color(UIColor.lightGray) : Color(UIColor.systemGray6))
                         
                         Button(action: {
                             // Navigate to sign up
@@ -159,8 +162,9 @@ struct LoginView: View {
                 .padding(.horizontal, 25)
                 .background(colorScheme == .dark ? Color(UIColor.systemBackground) : Color.white)
                 .cornerRadius(30, corners: [.topLeft, .topRight])
-                .offset(y: isLoginFormShown ? 0 : 400)
+                
             }
+            .frame(maxHeight: .infinity, alignment: .top)
         }
         .preferredColorScheme(themeManager.theme.colorScheme)
         .onAppear {
