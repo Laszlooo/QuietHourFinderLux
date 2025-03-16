@@ -34,15 +34,9 @@ struct SpaceCardView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom)
             }
-            .background(colorScheme == .dark ? Color(UIColor.systemBackground) : Color.white)
+            .background(colorScheme == .dark ? Color(.systemGray6) : Color.white)
             .cornerRadius(15)
             .clipShape(RoundedRectangle(cornerRadius: 15))
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(colorScheme == .dark ? Color.gray.opacity(0.3) : Color.gray.opacity(0.2), lineWidth: 1)
-            )
-            .shadow(color: colorScheme == .dark ? Color.white.opacity(0.1) : Color.black.opacity(0.1),
-                    radius: 3, x: 0, y: 2)
             .padding(4)
     }
 }

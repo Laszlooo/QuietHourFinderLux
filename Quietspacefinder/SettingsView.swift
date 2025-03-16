@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var themeManager: ThemeManager
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -35,25 +34,6 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text("Appearance")) {
-                HStack {
-                    Image(systemName: "paintbrush")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 20))
-                    
-                    Picker("Theme", selection: $themeManager.theme) {
-                        ForEach(AppTheme.allCases) { theme in
-                            HStack {
-                                Image(systemName: theme.icon)
-                                Text(theme.rawValue)
-                            }
-                            .tag(theme)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                }
-            }
-            
             Section(header: Text("About")) {
                 HStack {
                     Image(systemName: "info.circle")
@@ -76,13 +56,11 @@ struct SettingsView_Previews: PreviewProvider {
         Group {
             NavigationView {
                 SettingsView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.light)
             
             NavigationView {
                 SettingsView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.dark)
         }

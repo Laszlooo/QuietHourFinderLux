@@ -1,5 +1,13 @@
+// HomeView.swift
 import SwiftUI
 import MapKit
+
+// Create a struct for your custom annotation
+struct SpaceAnnotation: Identifiable {
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
+    let title: String?
+}
 
 struct HomeView: View {
     @StateObject var viewModel = SpaceViewModel()
@@ -9,45 +17,20 @@ struct HomeView: View {
     )
     @Environment(\.colorScheme) var colorScheme
     
+    // Add annotations array
+    @State private var annotations: [SpaceAnnotation] = [
+        SpaceAnnotation(
+            coordinate: CLLocationCoordinate2D(latitude: 49.6116, longitude: 6.1319),
+            title: "Luxembourg City"
+        )
+    ]
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("Spaces")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.leading)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(viewModel.spaces) { space in
-                                NavigationLink(destination: SpaceDetailView(space: space)) {
-                                    SpaceCardView(space: space)
-                                        .frame(width: 250, height: 325)
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 10)
-                    }
-                    
-                    Text("Maps")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.leading)
-                    
-                    NavigationLink(destination: FullScreenMapView()) {
-                        Map(
-                            coordinateRegion: $region
-                        )
-                        .frame(height: 400)
-                        .cornerRadius(15)
-                        .padding(.horizontal)
-                        .shadow(color: colorScheme == .dark ? Color.white.opacity(0.3) : Color.black.opacity(0.3),
-                                radius: 5, x: 5, y: 2)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                    SpacesSection(viewModel: viewModel)
+                    MapsSection(region: $region, annotations: annotations)
                 }
                 .padding(.top)
             }
@@ -59,7 +42,7 @@ struct HomeView: View {
                         .foregroundColor(.primary)
                 }
             )
-            .background(Color(UIColor.systemBackground))
+            .background(colorScheme == .dark ? Color.black : Color(.systemGray6))
         }
     }
 }

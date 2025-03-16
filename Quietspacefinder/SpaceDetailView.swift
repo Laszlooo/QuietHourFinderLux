@@ -3,7 +3,6 @@ import SwiftUI
 struct SpaceDetailView: View {
     let space: Space
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var themeManager: ThemeManager
 
     var body: some View {
         ScrollView {
@@ -35,7 +34,6 @@ struct SpaceDetailView: View {
         }
         .navigationTitle(space.title)
         .background(colorScheme == .dark ? Color(UIColor.systemBackground) : Color(UIColor.systemBackground))
-        .preferredColorScheme(themeManager.theme.colorScheme)
     }
 }
 
@@ -44,13 +42,11 @@ struct SpaceDetailView_Previews: PreviewProvider {
         Group {
             NavigationView {
                 SpaceDetailView(space: .init(id: 1, title: "Test Space", description: "This is a test space.", image: "placeholder", rating: 5))
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.light)
             
             NavigationView {
                 SpaceDetailView(space: .init(id: 1, title: "Test Space", description: "This is a test space.", image: "placeholder", rating: 5))
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.dark)
         }

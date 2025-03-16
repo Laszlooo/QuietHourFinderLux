@@ -3,7 +3,6 @@ import SwiftUI
 struct AccountSettingsView: View {
     @State private var username = "User"
     @State private var email = "user@example.com"
-    @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
         Form {
@@ -22,12 +21,10 @@ struct AccountSettingsView: View {
             }
         }
         .navigationTitle("Account")
-        .preferredColorScheme(themeManager.theme.colorScheme)
     }
 }
 
 struct SubscriptionView: View {
-    @EnvironmentObject var themeManager: ThemeManager
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -86,7 +83,6 @@ struct SubscriptionView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Subscription")
-        .preferredColorScheme(themeManager.theme.colorScheme)
     }
 }
 
@@ -95,25 +91,21 @@ struct AccountSubscriptionViews_Previews: PreviewProvider {
         Group {
             NavigationView {
                 AccountSettingsView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.light)
             
             NavigationView {
                 AccountSettingsView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.dark)
             
             NavigationView {
                 SubscriptionView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.light)
             
             NavigationView {
                 SubscriptionView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.dark)
         }
