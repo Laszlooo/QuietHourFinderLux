@@ -8,7 +8,6 @@ struct LoginView: View {
     @State private var isAuthenticating = false
     @State private var loginError = false
     
-    @EnvironmentObject var themeManager: ThemeManager
     @Environment(\.colorScheme) var colorScheme
     @Binding var isPresented: Bool
     
@@ -37,8 +36,6 @@ struct LoginView: View {
                     // Title
                     Text("Sign In")
                         .font(.system(size: 28, weight: .bold))
-                        .foregroundStyle(colorScheme == .dark ? Color(UIColor.white) : Color(UIColor.systemGray6))
-                        .foregroundColor(.primary)
                     
                     // Form fields
                     VStack(spacing: 20) {
@@ -60,9 +57,7 @@ struct LoginView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Password")
                                 .font(.headline)
-                                .foregroundStyle(colorScheme == .dark ? Color(UIColor.white) : Color(UIColor.black))
-                                .foregroundStyle(.primary.opacity(0.8))
-                                
+                                .foregroundColor(.primary.opacity(0.8))
                             
                             HStack {
                                 if showPassword {
@@ -146,7 +141,7 @@ struct LoginView: View {
                     // Sign up option
                     HStack {
                         Text("Don't have an account?")
-                            .foregroundStyle(colorScheme == .dark ? Color(UIColor.lightGray) : Color(UIColor.systemGray6))
+                            .foregroundColor(.secondary)
                         
                         Button(action: {
                             // Navigate to sign up
@@ -160,13 +155,12 @@ struct LoginView: View {
                     .padding(.bottom, 30)
                 }
                 .padding(.horizontal, 25)
-                .background(colorScheme == .dark ? Color(UIColor.systemBackground) : Color.white)
+                .background(Color(UIColor.systemBackground))
                 .cornerRadius(30, corners: [.topLeft, .topRight])
                 
             }
             .frame(maxHeight: .infinity, alignment: .top)
         }
-        .preferredColorScheme(themeManager.theme.colorScheme)
         .onAppear {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                 isLoginFormShown = true
@@ -201,11 +195,9 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             LoginView(isPresented: .constant(true))
-                .environmentObject(ThemeManager())
                 .preferredColorScheme(.light)
             
             LoginView(isPresented: .constant(true))
-                .environmentObject(ThemeManager())
                 .preferredColorScheme(.dark)
         }
     }

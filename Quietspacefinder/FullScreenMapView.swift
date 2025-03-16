@@ -7,7 +7,6 @@ struct FullScreenMapView: View {
         span: MKCoordinateSpan(latitudeDelta: 1.15, longitudeDelta: 0.05)
     )
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var themeManager: ThemeManager
 
     var body: some View {
         Map(
@@ -15,8 +14,6 @@ struct FullScreenMapView: View {
         )
         .edgesIgnoringSafeArea(.all)
         .navigationBarTitle("Full Screen Map", displayMode: .inline)
-        .colorScheme(colorScheme) // Ensure map respects system appearance
-        .preferredColorScheme(themeManager.theme.colorScheme)
     }
 }
 
@@ -25,13 +22,11 @@ struct FullScreenMapView_Previews: PreviewProvider {
         Group {
             NavigationView {
                 FullScreenMapView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.light)
             
             NavigationView {
                 FullScreenMapView()
-                    .environmentObject(ThemeManager())
             }
             .preferredColorScheme(.dark)
         }
