@@ -3,14 +3,14 @@
         "id": 1,
         "title": "Serene Library",
         "description": "A peaceful space perfect for focused work. lorem ipsum bla bla bla interesting stuff",
-        "image": "library",
+        "images": ["library"],
         "rating": 5
     },
     {
         "id": 2,
         "title": "Mountain Retreat",
         "description": "An inspiring view for deep thinking.",
-        "image": "mountain",
-        "rating": 4
+        "images": ["mountain"],
+        "rating": 4.8
     }
 ]

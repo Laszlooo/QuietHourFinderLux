@@ -6,7 +6,7 @@ struct SpaceCardView: View {
 
     var body: some View {
             VStack {
-                Image(space.image)
+                Image(space.images.first ?? "placeholder")
                     .resizable()
                     .scaledToFill()
                     .frame(height: 200)
@@ -44,10 +44,10 @@ struct SpaceCardView: View {
 struct SpaceCardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SpaceCardView(space: Space(id: 1, title: "Test Space", description: "A test description.", image: "placeholder", rating: 5))
+            SpaceCardView(space: Space(id: 1, title: "Test Space", description: "A test description.", images: ["placeholder"], rating: 4.5))
                 .preferredColorScheme(.light)
             
-            SpaceCardView(space: Space(id: 1, title: "Test Space", description: "A test description.", image: "placeholder", rating: 5))
+            SpaceCardView(space: Space(id: 1, title: "Test Space", description: "A test description.", images: ["placeholder"], rating: 5.0))
                 .preferredColorScheme(.dark)
         }
     }

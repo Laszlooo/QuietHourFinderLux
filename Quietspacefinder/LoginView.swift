@@ -12,32 +12,40 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            // Semi-transparent background (using system gray)
+            // Semi-transparent background
             Color.gray.opacity(0.5)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    withAnimation(.spring()) {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
                         isPresented = false
                     }
                 }
             
-            
             VStack(spacing: 0) {
-                Capsule()
-                    .fill(Color.secondary.opacity(0.5))
-                    .frame(width: 40, height: 5)
-                    .padding(.top, 10)
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                            isPresented = false
+                        }
+                    })
+                    {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 24))
+                            .foregroundColor(.secondary)
+                            .padding(.top, 20)
+                            .padding(.trailing, 20)
+                    }
+                }
                 
                 ScrollView {
                     VStack(spacing: 25) {
-                       
                         Text("Sign In")
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(.primary)
                             .padding(.top)
                         
                         VStack(spacing: 20) {
-                           
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Email")
                                     .font(.headline)
@@ -51,7 +59,6 @@ struct LoginView: View {
                                     .autocapitalization(.none)
                                     .foregroundColor(.primary)
                             }
-                            
                             
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Password")
@@ -82,26 +89,21 @@ struct LoginView: View {
                                 .foregroundColor(.primary)
                             }
                             
-                            
                             HStack {
                                 Spacer()
-                                Button(action: {
-                                   
-                                }) {
+                                Button(action: {}) {
                                     Text("Forgot Password?")
                                         .font(.subheadline)
                                         .foregroundColor(.accentColor)
                                 }
                             }
                             
-                           
                             if loginError {
                                 Text("Invalid email or password")
                                     .foregroundColor(.red)
                                     .font(.caption)
                             }
                             
-                          
                             Button(action: {
                                 withAnimation {
                                     isAuthenticating = true
@@ -133,14 +135,11 @@ struct LoginView: View {
                             }
                             .disabled(isAuthenticating)
                             
-                           
                             HStack {
                                 Text("Don't have an account?")
                                     .foregroundColor(.secondary)
                                 
-                                Button(action: {
-                                  
-                                }) {
+                                Button(action: {}) {
                                     Text("Sign Up")
                                         .fontWeight(.semibold)
                                         .foregroundColor(.accentColor)
@@ -156,10 +155,10 @@ struct LoginView: View {
             .background(Color(.systemBackground))
             .cornerRadius(30, corners: [.topLeft, .topRight])
             .ignoresSafeArea(.container, edges: .bottom)
+            .offset(y: isPresented ? 0 : UIScreen.main.bounds.height)
         }
     }
 }
-
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
@@ -181,7 +180,6 @@ struct RoundedCorner: Shape {
     }
 }
 
-// Preview
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
