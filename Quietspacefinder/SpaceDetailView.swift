@@ -12,6 +12,7 @@ struct SpaceDetailView: View {
             VStack(spacing: 20) {
                 ImageGalleryView(images: space.images, selectedImageIndex: $selectedImageIndex)
                 
+                // Modified VStack with frame alignment
                 VStack(alignment: .leading, spacing: 8) {
                     Text(space.title)
                         .font(.title)
@@ -24,7 +25,8 @@ struct SpaceDetailView: View {
                             .foregroundColor(.gray)
                     }
                 }
-                .padding(.horizontal)
+                .padding(.leading, 30)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(alignment: .leading, spacing: 12) {
                     Text("About this space")
@@ -34,7 +36,8 @@ struct SpaceDetailView: View {
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
-                .padding(.horizontal)
+                .padding(.leading, 13)
+                .padding(.trailing, 10)
                 
                 CommentSectionView(comments: $comments, newComment: $newComment, addComment: addComment)
                     .padding(.horizontal)
@@ -56,7 +59,7 @@ struct SpaceDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                SpaceDetailView(space: .init(id: 1, title: "Luxury Beach Villa", description: "A stunning beachfront villa with modern amenities and breathtaking views.", images: ["placeholder", "mountain"], rating: 4.8))
+                SpaceDetailView(space: .init(id: 1, title: "Super hot & quiet", description: "A stunning beachfront hot and quiet space with modern amenities and breathtaking views. nearby beach and mountains too. people love working or studying here", images: ["placeholder", "mountain"], rating: 4.8))
             }
             .preferredColorScheme(.light)
             
