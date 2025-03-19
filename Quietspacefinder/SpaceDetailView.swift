@@ -39,6 +39,9 @@ struct SpaceDetailView: View {
                 .padding(.leading, 13)
                 .padding(.trailing, 10)
                 
+                // Add the map view component here
+                SpaceDetailMapView(title: space.title, coordinate: space.coordinate)
+                
                 CommentSectionView(comments: $comments, newComment: $newComment, addComment: addComment)
                     .padding(.horizontal)
             }
@@ -59,12 +62,28 @@ struct SpaceDetailView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                SpaceDetailView(space: .init(id: 1, title: "Super hot & quiet", description: "A stunning beachfront hot and quiet space with modern amenities and breathtaking views. nearby beach and mountains too. people love working or studying here", images: ["placeholder", "mountain"], rating: 4.8))
+                SpaceDetailView(space: .init(
+                    id: 1,
+                    title: "Super hot & quiet",
+                    description: "A stunning beachfront hot and quiet space with modern amenities and breathtaking views. nearby beach and mountains too. people love working or studying here",
+                    images: ["placeholder", "mountain"],
+                    rating: 4.8,
+                    latitude: 49.6116,
+                    longitude: 6.1319
+                ))
             }
             .preferredColorScheme(.light)
             
             NavigationView {
-                SpaceDetailView(space: .init(id: 1, title: "Luxury Beach Villa", description: "A stunning beachfront villa with modern amenities and breathtaking views.", images: ["placeholder"], rating: 4.8))
+                SpaceDetailView(space: .init(
+                    id: 2,
+                    title: "Luxury Beach Villa",
+                    description: "A stunning beachfront villa with modern amenities and breathtaking views.",
+                    images: ["placeholder"],
+                    rating: 4.8,
+                    latitude: 49.6277,
+                    longitude: 6.1598
+                ))
             }
             .preferredColorScheme(.dark)
         }

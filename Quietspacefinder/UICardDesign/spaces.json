@@ -4,13 +4,17 @@
         "title": "Serene Library",
         "description": "A peaceful space perfect for focused work. lorem ipsum bla bla bla interesting stuff",
         "images": ["library"],
-        "rating": 5
+        "rating": 5,
+        "latitude": 49.6116,
+        "longitude": 6.1319
     },
     {
         "id": 2,
         "title": "Mountain Retreat",
         "description": "An inspiring view for deep thinking.",
         "images": ["mountain"],
-        "rating": 4.8
+        "rating": 4.8,
+        "latitude": 49.6277,
+        "longitude": 6.1598
     }
 ]
